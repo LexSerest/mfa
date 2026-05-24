@@ -1,0 +1,24 @@
+mfa - A Secure CLI Two-Factor Authentication (2FA) Manager
+
+Usage:
+  mfa <command> [arguments]
+
+Commands:
+  add         <label>               Add a new 2FA account [--digits=6] [--period=30] [--algo=SHA1]
+  gen         <label>               Generate current TOTP code and copy to clipboard
+  qr          <label>               Display account's QR code in the terminal for mobile sync [--big]
+  list, ls                          List all saved account labels
+  del, rm     <label>               Delete a 2FA account
+  rename, mv  <label> <new label>   Rename an existing account label
+  import      <path>                Import from plain text file (.txt with otpauth://)
+  export      <path>                Export to UNENCRYPTED plain text file (otpauth:// format)
+  help                              Show this help message
+
+Examples:
+  mfa add google
+  mfa gen google
+  mfa rename google google-personal
+  mfa qr work-slack --big
+
+Database Path:
+  %s

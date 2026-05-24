@@ -1,0 +1,6 @@
+dist/
+.direnv
+bin/
+completions/
+result
+.DS_Store

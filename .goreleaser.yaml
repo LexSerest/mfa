@@ -1,0 +1,61 @@
+version: 2
+project_name: mfa
+
+before:
+  hooks:
+    - make completions
+
+builds:
+  - main: ./cmd/mfa/
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - formats: ["tar.gz"]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - src: "completions/*"
+        dst: "completions"
+
+nfpms:
+  - id: mfa-linux-packages
+    package_name: mfa
+    file_name_template: "{{ .PackageName }}_{{ .Version }}_{{ .Arch }}"
+    formats:
+      - deb
+      - rpm
+    vendor: "mfa"
+    homepage: "github.com/LexSerest/mfa"
+    maintainer: "LexSerest <lexserest@gmail.com>"
+    description: "Secure 2FA CLI manager"
+    license: "MIT"
+    contents:
+      - src: completions/mfa.bash
+        dst: /usr/share/bash-completion/completions/mfa
+      - src: completions/mfa.zsh
+        dst: /usr/share/zsh/vendor-completions/_mfa
+      - src: completions/mfa.fish
+        dst: /usr/share/fish/vendor_completions.d/mfa.fish
+
+homebrew_casks:
+  - repository:
+      owner: LexSerest
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    homepage: "https://github.com/LexSerest/mfa"
+    description: "Secure 2FA CLI manager"
+    license: "MIT"
+    binaries:
+      - mfa
+    completions:
+      bash: "completions/mfa.bash"
+      zsh: "completions/mfa.zsh"
+      fish: "completions/mfa.fish"
