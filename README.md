@@ -130,8 +130,8 @@ The manager allows seamless data migration between desktop and mobile devices.
 
 To perform operations, use the corresponding commands:
 ```bash
-mfa import backup.json
-mfa export backup.json
+mfa import backup.txt
+mfa export backup.txt
 ```
 
 ---
