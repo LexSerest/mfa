@@ -1,19 +1,37 @@
 package term
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"syscall"
 
 	"github.com/mdp/qrterminal/v3"
 	"golang.org/x/term"
 )
 
 func TermGetPassword(prompt string) string {
-	fmt.Print(prompt)
-	bytePassword, _ := term.ReadPassword(int(syscall.Stdin))
-	fmt.Println()
-	return string(bytePassword)
+	if term.IsTerminal(int(os.Stdin.Fd())) {
+		fmt.Print(prompt)
+		passwordBytes, err := term.ReadPassword(int(os.Stdin.Fd()))
+		fmt.Println()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error reading password: %v\n", err)
+			os.Exit(1)
+		}
+		return string(passwordBytes)
+	}
+
+	scanner := bufio.NewScanner(os.Stdin)
+	if scanner.Scan() {
+		return scanner.Text()
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading from pipeline: %v\n", err)
+		os.Exit(1)
+	}
+
+	return ""
 }
 
 func TermAltScreen() {

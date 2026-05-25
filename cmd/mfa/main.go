@@ -41,6 +41,11 @@ func main() {
 		code, nextCode, timeLeft, err := storage.AccountGenCode(cli.Label, password)
 		checkErr(err)
 
+		if cli.IsRaw {
+			fmt.Print(code)
+			return
+		}
+
 		clipboard.WriteAll(code)
 		fmt.Println()
 		fmt.Printf("%s (%ds) (copied!)\n", code, timeLeft)

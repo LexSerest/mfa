@@ -17,6 +17,7 @@ type CLIParser struct {
 	Period   int
 	Algo     string
 	IsBig    bool
+	IsRaw    bool
 }
 
 func parseArgs() *CLIParser {
@@ -50,6 +51,8 @@ func parseArgs() *CLIParser {
 		fs.IntVar(&cli.Digits, "digits", 6, "number of digits in TOTP code")
 		fs.IntVar(&cli.Period, "period", 30, "TOTP step period in seconds")
 		fs.StringVar(&cli.Algo, "algo", "SHA1", "hashing algorithm (SHA1, SHA256, SHA512)")
+	case "gen":
+		fs.BoolVar(&cli.IsRaw, "raw", false, "output only the raw current token")
 	case "qr":
 		fs.BoolVar(&cli.IsBig, "big", false, "render larger QR code format")
 	}
