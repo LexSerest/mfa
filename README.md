@@ -93,10 +93,8 @@ mfa add google
 
 **Generating a 2FA code:**
 ```bash
-mfa gen google
-```
-*Output looks like:*
-```text
+$ mfa gen google
+
 875311 (22s) (copied!)
 345666 (next)
 ```
