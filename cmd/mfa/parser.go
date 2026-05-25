@@ -9,15 +9,16 @@ import (
 )
 
 type CLIParser struct {
-	Command  string
-	Label    string
-	NewLabel string
-	Path     string
-	Digits   int
-	Period   int
-	Algo     string
-	IsBig    bool
-	IsRaw    bool
+	Command   string
+	Label     string
+	NewLabel  string
+	Path      string
+	Digits    int
+	Period    int
+	Algo      string
+	IsBig     bool
+	IsRaw     bool
+	IsVersion bool
 }
 
 func parseArgs() *CLIParser {
@@ -26,6 +27,10 @@ func parseArgs() *CLIParser {
 	}
 
 	cmd := os.Args[1]
+
+	if cmd == "-v" || cmd == "--version" || cmd == "version" {
+		return &CLIParser{Command: "version"}
+	}
 
 	switch cmd {
 	case "ls":

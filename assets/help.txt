@@ -12,6 +12,7 @@ Commands:
   rename, mv  <label> <new label>   Rename an existing account label
   import      <path>                Import from plain text file (.txt with otpauth://)
   export      <path>                Export to UNENCRYPTED plain text file (otpauth:// format)
+  version, -v, --version            Show the application version
   help                              Show this help message
 
 Examples:

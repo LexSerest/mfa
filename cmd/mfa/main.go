@@ -23,10 +23,16 @@ func help() {
 	fmt.Printf(assets.HelpText, storage.GetDbPath())
 }
 
+var Version = "development"
+
 func main() {
 	cli := parseArgs()
 
 	switch cli.Command {
+	case "version":
+		fmt.Printf("mfa version %s\n", Version)
+		return
+
 	case "add":
 		password := term.TermGetPassword("Password: ")
 		secret := term.TermGetPassword(fmt.Sprintf("2fa secret '%s': ", cli.Label))
