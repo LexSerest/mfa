@@ -144,17 +144,19 @@ pass show tools/mfa-master | mfa gen github --raw | xargs -I {} curl -H "Authori
 
 ## Backup, Import & Export
 
-The manager allows seamless data migration between desktop and mobile devices. 
+The manager allows seamless data migration between desktop and mobile devices using the standard OTP Auth URI format.
 
-### Supported Formats
-1. **Aegis Authenticator:** You can import and export data in formats compatible with the Aegis app.
-2. **Plain Text (.txt):** Import raw lists of standard URIs. The file must contain one valid token path per line in the following format:
-   ```text
-   otpauth://totp/Google:user@://gmail.com
-   otpauth://totp/GitHub:developer?secret=KVKVE43V&issuer=GitHub
-   ```
+### Supported Format
+* **Plain Text (otpauth://):** The application exclusively supports standard plain text files containing OTP Auth URIs. Applications like **Aegis Authenticator** can export backups directly into this format.
 
-To perform operations, use the corresponding commands:
+The backup file must contain exactly one valid URI per line. For example:
+```text
+otpauth://totp/Google:user?secret=KVKVE43V&issuer=Google
+otpauth://totp/GitHub:developer?secret=KVKVE43V&issuer=GitHub
+```
+
+### Usage
+To import or export your tokens, use the following commands:
 ```bash
 mfa import backup.txt
 mfa export backup.txt
